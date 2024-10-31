@@ -10,6 +10,7 @@ mod otsu;
 mod stats;
 
 fn run() -> Result<(), Box<dyn std::error::Error>> {
+    
     // Directory containing the images
     println!("Select the folder containing the images");
     let img_dir = FileDialog::new()
@@ -134,7 +135,7 @@ fn process_image(img_path: &PathBuf) {
     );
     let mut input = String::new();
     std::io::stdin().read_line(&mut input).unwrap();
-    for k in 2..=5 {
+    for k in 2..=4 {
         for _ in 0..1 {
             do_metric_thresholding(&to_run, img_path, &gray_img, k, exclude_zero);
         }
