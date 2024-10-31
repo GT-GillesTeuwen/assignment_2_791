@@ -89,36 +89,36 @@ fn process_image(img_path: &PathBuf) {
         &str,
         fn(&str, &image::ImageBuffer<Luma<u8>, Vec<u8>>, usize) -> Vec<u8>,
     )> = vec![
-        (
-            "otsu",
-            "sa",
-            otsu::compute_otsu_thresholds_simulated_annealing,
-        ),
-        (
-            "kapur",
-            "sa",
-            kapur::compute_kapur_thresholds_simulated_annealing,
-        ),
-        (
-            "otsu",
-            "vns",
-            otsu::compute_otsu_thresholds_variable_neighborhood,
-        ),
-        (
-            "kapur",
-            "vns",
-            kapur::compute_kapur_thresholds_variable_neighborhood,
-        ),
+        // (
+        //     "otsu",
+        //     "sa",
+        //     otsu::compute_otsu_thresholds_simulated_annealing,
+        // ),
         // (
         //     "kapur",
-        //     "exhaustive",
-        //     kapur::compute_exhaustive_kapur_thresholds,
+        //     "sa",
+        //     kapur::compute_kapur_thresholds_simulated_annealing,
         // ),
         // (
         //     "otsu",
-        //     "exhaustive",
-        //     otsu::compute_exhaustive_otsu_thresholds,
+        //     "vns",
+        //     otsu::compute_otsu_thresholds_variable_neighborhood,
         // ),
+        // (
+        //     "kapur",
+        //     "vns",
+        //     kapur::compute_kapur_thresholds_variable_neighborhood,
+        // ),
+        (
+            "kapur",
+            "exhaustive",
+            kapur::compute_exhaustive_kapur_thresholds,
+        ),
+        (
+            "otsu",
+            "exhaustive",
+            otsu::compute_exhaustive_otsu_thresholds,
+        ),
     ];
     let file_stem = img_path.file_stem().unwrap().to_string_lossy();
     println!(
@@ -135,7 +135,7 @@ fn process_image(img_path: &PathBuf) {
     let mut input = String::new();
     std::io::stdin().read_line(&mut input).unwrap();
     for k in 2..=5 {
-        for _ in 0..30 {
+        for _ in 0..1 {
             do_metric_thresholding(&to_run, img_path, &gray_img, k, exclude_zero);
         }
     }
